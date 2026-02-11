@@ -1,0 +1,262 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f8f9fa;
+}
+
+.app-header {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  .header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .fa-file-pdf {
+      font-size: 24px;
+    }
+  }
+}
+
+.document-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+
+  .document-name {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .document-stats {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #bdc3c7;
+
+    i {
+      font-size: 12px;
+    }
+  }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.file-upload {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-upload {
+  background: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+  }
+}
+
+.file-name {
+  font-size: 13px;
+  color: #bdc3c7;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.pdf-viewer-wrapper {
+  flex: 1;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.empty-state {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: white;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.empty-content {
+  text-align: center;
+  max-width: 500px;
+
+  .fa-file-pdf {
+    font-size: 80px;
+    color: #dc3545;
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+
+  h2 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    font-size: 28px;
+  }
+
+  p {
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+}
+
+.file-upload-large {
+  .btn-upload-large {
+    border: 3px dashed #3498db;
+    border-radius: 8px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #f8f9fa;
+
+    &:hover {
+      background: #e3f2fd;
+      border-color: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    .fa-cloud-upload-alt {
+      font-size: 48px;
+      color: #3498db;
+    }
+
+    span {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    small {
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+  }
+}
+
+.app-footer {
+  background: #2c3e50;
+  color: white;
+  padding: 15px 30px;
+  border-top: 1px solid #34495e;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #bdc3c7;
+
+    i {
+      font-size: 16px;
+    }
+  }
+}
+
+.footer-stats {
+  display: flex;
+  gap: 20px;
+
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #ecf0f1;
+
+    i {
+      font-size: 12px;
+      color: #3498db;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+
+    .header-left, .header-right {
+      width: 100%;
+    }
+
+    .document-info {
+      justify-content: space-between;
+    }
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .footer-stats {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

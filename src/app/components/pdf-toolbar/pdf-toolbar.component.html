@@ -1,0 +1,135 @@
+<div class="toolbar">
+  <div class="toolbar-section">
+    <div class="tool-group">
+      <button 
+        class="tool-btn" 
+        [class.active]="activeTool === 'text'"
+        (click)="selectTool('text')"
+        title="Ajouter du texte">
+        <i class="fas fa-font"></i>
+        <span class="tool-label">Texte</span>
+      </button>
+      
+      <button 
+        class="tool-btn" 
+        [class.active]="activeTool === 'checkbox'"
+        (click)="selectTool('checkbox')"
+        title="Ajouter une case à cocher">
+        <i class="far fa-square"></i>
+        <span class="tool-label">Case</span>
+      </button>
+      
+      <button 
+        class="tool-btn" 
+        [class.active]="activeTool === 'signature'"
+        (click)="selectTool('signature')"
+        title="Ajouter une signature">
+        <i class="fas fa-signature"></i>
+        <span class="tool-label">Signature</span>
+      </button>
+      
+      <button 
+        class="tool-btn" 
+        [class.active]="activeTool === 'select'"
+        (click)="selectTool('select')"
+        title="Sélectionner et déplacer">
+        <i class="fas fa-arrows-alt"></i>
+        <span class="tool-label">Déplacer</span>
+      </button>
+    </div>
+
+    <div class="tool-group" *ngIf="activeTool === 'text' && showTextProperties">
+      <div class="property-control">
+        <label>Taille:</label>
+        <input 
+          type="number" 
+          [value]="textProperties.fontSize"
+          (change)="onFontSizeChange($event)"
+          min="8" 
+          max="72"
+          class="property-input">
+      </div>
+      
+      <div class="property-control">
+        <label>Couleur:</label>
+        <input 
+          type="color" 
+          [value]="textProperties.color"
+          (change)="onColorChange($event)"
+          class="property-input color-input">
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar-section">
+    <div class="tool-group">
+      <button 
+        class="tool-btn" 
+        [class.disabled]="!canUndo"
+        (click)="onUndo()"
+        [title]="canUndo ? 'Annuler' : 'Rien à annuler'">
+        <i class="fas fa-undo"></i>
+        <span class="tool-label">Annuler</span>
+      </button>
+      
+      <button 
+        class="tool-btn" 
+        [class.disabled]="!canRedo"
+        (click)="onRedo()"
+        [title]="canRedo ? 'Rétablir' : 'Rien à rétablir'">
+        <i class="fas fa-redo"></i>
+        <span class="tool-label">Rétablir</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="toolbar-section">
+    <div class="tool-group">
+      <div class="page-controls" *ngIf="totalPages > 0">
+        <button 
+          class="page-btn" 
+          (click)="previousPage()"
+          [disabled]="currentPage === 1">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="page-info">
+          <span class="current-page">{{ currentPage }}</span>
+          <span class="page-separator">/</span>
+          <span class="total-pages">{{ totalPages }}</span>
+        </div>
+        
+        <button 
+          class="page-btn" 
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar-section">
+    <div class="tool-group">
+      <button class="tool-btn btn-save" (click)="onSave()" title="Sauvegarder">
+        <i class="fas fa-save"></i>
+        <span class="tool-label">Sauvegarder</span>
+      </button>
+      
+      <button class="tool-btn btn-load" (click)="onLoad()" title="Charger">
+        <i class="fas fa-folder-open"></i>
+        <span class="tool-label">Charger</span>
+      </button>
+      
+      <button class="tool-btn btn-export" (click)="onExport()" title="Exporter PDF">
+        <i class="fas fa-download"></i>
+        <span class="tool-label">Exporter</span>
+      </button>
+      
+      <button class="tool-btn btn-clear" (click)="onClear()" title="Tout effacer">
+        <i class="fas fa-trash-alt"></i>
+        <span class="tool-label">Effacer</span>
+      </button>
+    </div>
+  </div>
+</div>

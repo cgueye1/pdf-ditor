@@ -1,0 +1,73 @@
+<div class="pdf-viewer-container">
+  <!-- Indicateur de chargement -->
+  <div *ngIf="isRendering" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Chargement de la page {{ currentPage }}...</p>
+  </div>
+
+  <!-- Conteneur PDF -->
+  <div #pdfContainer class="pdf-container">
+    <canvas 
+      #pdfCanvas
+      class="pdf-canvas"
+      (click)="onCanvasClick($event)"
+      [class.select-mode]="activeTool === 'select'"
+      [class.text-mode]="activeTool === 'text'"
+      [class.checkbox-mode]="activeTool === 'checkbox'">
+    </canvas>
+
+    <!-- Champs superposés -->
+    <div class="fields-layer">
+      <div 
+        *ngFor="let field of getFieldsForCurrentPage()"
+        class="field-container"
+        [ngStyle]="getFieldStyle(field)"
+        [appDraggable]="activeTool === 'select'"
+        [dragData]="field"
+        (dragStart)="onFieldSelected(field)"
+        (dragEnd)="onFieldDragEnd($event)"
+        (click)="onFieldSelected(field)"
+        [class.selected]="selectedField?.id === field.id">
+
+        <!-- Texte -->
+        <div *ngIf="field.type === 'text'" class="text-field">
+          {{ field.value }}
+          <div class="field-handle" *ngIf="selectedField?.id === field.id">
+            <i class="fas fa-arrows-alt"></i>
+          </div>
+        </div>
+
+        <!-- Case à cocher -->
+        <div *ngIf="field.type === 'checkbox'" class="checkbox-field">
+          <div class="checkbox-box" [class.checked]="field.value">
+            <i *ngIf="field.value" class="fas fa-check"></i>
+          </div>
+          <div class="field-handle" *ngIf="selectedField?.id === field.id">
+            <i class="fas fa-arrows-alt"></i>
+          </div>
+        </div>
+
+        <!-- Signature -->
+        <div *ngIf="field.type === 'signature'" class="signature-field">
+          <img [src]="field.value" [alt]="'Signature ' + field.id">
+          <div class="field-handle" *ngIf="selectedField?.id === field.id">
+            <i class="fas fa-arrows-alt"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Indicateur de mode actif -->
+    <div *ngIf="activeTool" class="active-tool-indicator">
+      <div *ngIf="activeTool === 'text'" class="indicator-text">
+        <i class="fas fa-mouse-pointer"></i> Cliquez pour ajouter du texte
+      </div>
+      <div *ngIf="activeTool === 'checkbox'" class="indicator-text">
+        <i class="fas fa-mouse-pointer"></i> Cliquez pour ajouter une case
+      </div>
+      <div *ngIf="activeTool === 'select'" class="indicator-text">
+        <i class="fas fa-arrows-alt"></i> Glissez-déposez pour déplacer
+      </div>
+    </div>
+  </div>
+</div>

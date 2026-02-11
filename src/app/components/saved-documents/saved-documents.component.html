@@ -1,0 +1,84 @@
+<div class="saved-documents-modal" *ngIf="show">
+  <div class="modal-overlay" (click)="close()"></div>
+  
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>
+        <i class="fas fa-folder-open"></i>
+        Documents sauvegardés
+      </h3>
+      <button class="close-btn" (click)="close()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Barre de recherche -->
+      <div class="search-bar">
+        <div class="search-input-container">
+          <i class="fas fa-search"></i>
+          <input 
+            type="text" 
+            [(ngModel)]="searchQuery"
+            (input)="onSearch()"
+            placeholder="Rechercher un document..."
+            class="search-input">
+        </div>
+        <button class="btn btn-danger" (click)="clearAll()">
+          <i class="fas fa-trash"></i> Tout supprimer
+        </button>
+      </div>
+
+      <!-- Liste des documents -->
+      <div class="documents-list">
+        <div *ngIf="filteredDocuments.length === 0" class="empty-state">
+          <i class="fas fa-inbox"></i>
+          <p>Aucun document sauvegardé</p>
+        </div>
+
+        <div 
+          *ngFor="let doc of filteredDocuments"
+          class="document-item"
+          (click)="selectDocument(doc)">
+          
+          <div class="document-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          
+          <div class="document-info">
+            <h4 class="document-title">{{ doc.name }}</h4>
+            <div class="document-meta">
+              <span class="meta-item">
+                <i class="fas fa-calendar"></i>
+                {{ formatDate(doc.createdAt) }}
+              </span>
+              <span class="meta-item">
+                <i class="fas fa-edit"></i>
+                {{ formatDate(doc.updatedAt) }}
+              </span>
+              <span class="meta-item">
+                <i class="fas fa-layer-group"></i>
+                {{ doc.fields.length }} éléments
+              </span>
+            </div>
+          </div>
+
+          <div class="document-actions">
+            <button 
+              class="btn-action btn-delete"
+              (click)="deleteDocument(doc, $event)"
+              title="Supprimer">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="close()">
+        <i class="fas fa-times"></i> Fermer
+      </button>
+    </div>
+  </div>
+</div>
